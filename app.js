@@ -23,7 +23,7 @@ function deleteDir(url) {
 		//判断给定的路径是否存在
 
 		files = fs.readdirSync(url); //返回文件和子目录的数组
-		files.forEach(function(file, index) {
+		files.forEach(function (file, index) {
 			var curPath = path.join(url, file);
 
 			if (fs.statSync(curPath).isDirectory()) {
@@ -59,7 +59,7 @@ app.use(
 	})
 );
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
 	const data = Object.assign(json, { js: "index", css: "index" });
 	data.menu.forEach((v, k) => {
 		v.delay = k * 0.2;
@@ -73,7 +73,7 @@ app.get("/", function(req, res) {
 	res.render("index.html", data);
 });
 
-app.get("/:filename.html", function(req, res, next) {
+app.get("/:filename.html", function (req, res, next) {
 	const filename = req.params.filename;
 
 	const csspath = path.join(__dirname, `assets/css${filename}.css`);
@@ -94,8 +94,9 @@ app.get("/:filename.html", function(req, res, next) {
 	}
 });
 
-fs.watch("./assets/stylus/stylesheets", { recursive: true }, function() {
+fs.watch("./assets/stylus/stylesheets", { recursive: true }, function () {
 	deleteDir("./assets/style/stylesheets");
 });
 
 app.listen(3001);
+console.log('Sever is running at : http://127.0.0.1:3001');
